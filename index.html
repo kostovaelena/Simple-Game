@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Memory Card Game</title>
+
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+
+<div class="gameContainer">
+	<div>
+		<h1 style="text-align: center; color: white; margin-left: 63px; font-family: 'Trebuchet MS', sans-serif;">HOW GOOD IS YOUR MEMORY?</h1>
+	<br/>
+	<br/>
+	</div>
+
+<div class="memoryCard" data-image="github">
+<img src="./images/github.png" class="front" alt="github">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="github">
+<img src="./images/github.png" class="front" alt="github">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="php">
+<img src="./images/php.png" class="front" alt="php">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="php">
+<img src="./images/php.png" class="front" alt="php">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="javascript">
+<img src="./images/javascript.png"  class="front" alt="javascript">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="javascript">
+<img src="./images/javascript.png"  class="front" alt="javascript">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="jquery">
+<img src="./images/jquery.png" class="front" alt="jquery">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="jquery">
+<img src="./images/jquery.png" class="front" alt="jquery">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="vue.js">
+<img src="./images/vuejs.png" class="front" alt="vue.js">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="vue.js">
+<img src="./images/vuejs.png" class="front" alt="vue.js">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="react">
+<img src="./images/react.png" class="front" alt="react">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="react">
+<img src="./images/react.png" class="front" alt="react">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="sass">
+<img src="./images/sass.png" class="front" alt="sass">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="sass">
+<img src="./images/sass.png" class="front" alt="sass">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="vscode">
+<img src="./images/vscode.png" class="front" alt="vscode">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<div class="memoryCard" data-image="vscode">
+<img src="./images/vscode.png" class="front" alt="vscode">
+<img src="./images/question_mark.png" class="back" alt="myLogo">
+</div>
+
+<script src="index.js"></script>
+</body>
+
+<script>
+    const cards = document.querySelectorAll(".memoryCard");
+var isFlipped = false;
+var firstCard, secondCard;
+var lock = false;
+cards.forEach(card => card.addEventListener("click", flip));
+function flip() {
+		if (lock) return;
+		if (this === firstCard) return;
+		this.classList.add("flip");
+		if (!isFlipped) {
+			isFlipped = true;
+			firstCard = this;
+			return;
+		}
+		secondCard = this;
+		check();
+}
+function check() {
+		var isMatch = firstCard.dataset.image === secondCard.dataset.image;
+		isMatch ? succes() : fail();
+}
+function succes() {
+		firstCard.removeEventListener("click", flip);
+		secondCard.removeEventListener( "click", flip);
+		reset();
+}
+function fail() {
+		lock = true;
+		setTimeout(() => {
+				firstCard.classList.remove("flip");
+				secondCard.classList.remove ("flip");
+				reset();
+		}, 1000);
+}
+function reset() {
+		[isFlipped, lock] = [false, false];
+		[firstCard, secondCard] = [null, null];
+}
+(function suffle() {
+		cards.forEach( card => {
+				var position = Math.floor(Math.random() * 16);
+				card.style.order = position;
+		});
+})();
+
+</script>
+<br/>
+</html>
